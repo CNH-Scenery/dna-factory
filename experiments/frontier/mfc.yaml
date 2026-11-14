@@ -1,0 +1,39 @@
+run_name: frontier-mfc
+output_dir: runs/mfc
+
+dataset_name: null
+datasets:
+  - path: data/uns128_frontier
+    split: train
+
+reward_funcs:
+  - dna_factory.rewards.safe_accuracy_reward
+
+model_name_or_path: dnotitia/Qwen3-0.6B
+
+frontier_curriculum: mfc
+frontier_success_reward: safe_accuracy_reward
+frontier_holdout_ratio: 0.15
+frontier_max_hint_ratio: 1.0
+
+loss_type: dapo
+epsilon_high: 0.28
+num_generations: 8
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 16
+max_completion_length: 4096
+vllm_max_model_length: 6144
+dynamic_sampling: mask
+
+seed: 42
+num_train_epochs: 100
+max_steps: 150
+save_strategy: "no"
+periodic_save_seconds: "0"
+eval_on_checkpoint: false
+report_to:
+  - none
+print_logs: true
+log_completions: false
+logging_steps: 1
+debug_first_n_batches: 0
